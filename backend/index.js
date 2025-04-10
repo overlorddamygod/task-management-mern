@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-const authRoutes = require("./routes/authRoutes")
+const authRouter = require("./routes/authRoutes")
+const taskRouter = require("./routes/taskRoutes")
 dotenv.config();
 
 const app = express();
@@ -19,7 +20,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRouter);
+app.use("/api/tasks", taskRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
