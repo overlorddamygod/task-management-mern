@@ -19,7 +19,7 @@ const createTask = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating task:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Error creating task" });
   }
 };
 
@@ -36,7 +36,7 @@ const getTasks = async (req, res) => {
     res.status(200).json(tasks);
   } catch (error) {
     console.error("Error fetching tasks:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Error fetching tasks" });
   }
 };
 
@@ -73,7 +73,7 @@ const updateTask = async (req, res) => {
     });
   } catch (error) {
     console.error("Error updating task:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Error updating task" });
   }
 }
 
@@ -104,7 +104,7 @@ const deleteTask = async (req, res) => {
     });
   } catch (error) {
     console.error("Error deleting task:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Error deleting task" });
   }
 };
 

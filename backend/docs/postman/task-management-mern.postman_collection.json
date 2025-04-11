@@ -39,7 +39,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNlNHNwZTAwMDExcnJ2M2FqYnQ5OTgiLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNTI4OTUsImV4cCI6MTc0NDk1NzY5NX0.VBEOT0-QvFd4vLoEN2eGUQbSqdxAFJCqQkNbEycEKOI",
+									"value": "eyJ2bGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNmMnVtcjAwMDAxcmtjYm1vbWhwb3giLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNzgzNDEsImV4cCI6MTc0NDk4MzE0MX0.XG9Z_ylyun_dOoi_hYIOZIbj77Sb7_phqLOqixi7Vjo",
 									"type": "string"
 								}
 							]
@@ -78,7 +78,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWJpdHc3eDAwMDAxcmpyOHJmNHNsZmwiLCJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlhdCI6MTc0NDI5OTQyMiwiZXhwIjoxNzQ0OTA0MjIyfQ.4RfTC7_Xz3RnUiIsiPcJQi5OfLZ1PDVAzlGSJ_XCNS8",
+									"value": "eyJ2bGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNmMnVtcjAwMDAxcmtjYm1vbWhwb3giLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNzgzNDEsImV4cCI6MTc0NDk4MzE0MX0.XG9Z_ylyun_dOoi_hYIOZIbj77Sb7_phqLOqixi7Vjo",
 									"type": "string"
 								}
 							]
@@ -145,7 +145,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNmMnVtcjAwMDAxcmtjYm1vbWhwb3giLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNzgzNDEsImV4cCI6MTc0NDk4MzE0MX0.XG9Z_ylyun_dOoi_hYIOZIbj77Sb7_phqLOqixi7Vjo",
+									"value": "eyJ2bGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNmMnVtcjAwMDAxcmtjYm1vbWhwb3giLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNzgzNDEsImV4cCI6MTc0NDk4MzE0MX0.XG9Z_ylyun_dOoi_hYIOZIbj77Sb7_phqLOqixi7Vjo",
 									"type": "string"
 								}
 							]
@@ -225,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"ram\",\n    \"email\": \"ram@gmail.com\",\n    \"password\": \"Ram123456\"\n}",
+							"raw": "{\n    \"name\": \"ram\",\n    \"email\": \"ram@gmail.com\",\n    \"password\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -243,6 +243,37 @@
 								"api",
 								"auth",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ2bGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNtOWNmMnVtcjAwMDAxcmtjYm1vbWhwb3giLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE3NDQzNzgzNDEsImV4cCI6MTc0NDk4MzE0MX0.XG9Z_ylyun_dOoi_hYIOZIbj77Sb7_phqLOqixi7Vjo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"me"
 							]
 						}
 					},

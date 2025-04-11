@@ -144,9 +144,12 @@ Postman collection is available in the [/backend/docs/postman/task-management-me
 
 Full API documentation is available in the [/backend/docs/API_README.md](./backend/docs/API_README.md)
 
-| Method | Endpoint       | Description   |
-| ------ | -------------- | ------------- |
-| POST   | /api/tasks     | Create Task   |
-| GET    | /api/tasks     | Get All Tasks |
-| PATCH  | /api/tasks/:id | Update Task   |
-| DELETE | /api/tasks/:id | Delete Task   |
+| Method | Endpoint           | Description      |
+| ------ | ------------------ | ---------------- |
+| POST   | /api/auth/register | Register User    |
+| POST   | /api/auth/login    | Login User       |
+| GET    | /api/auth/me       | Get User details |
+| POST   | /api/tasks         | Create Task      |
+| GET    | /api/tasks         | Get All Tasks    |
+| PATCH  | /api/tasks/:id     | Update Task      |
+| DELETE | /api/tasks/:id     | Delete Task      |
