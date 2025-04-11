@@ -34,7 +34,7 @@ const formSchema = z.object({
   description: z.string().optional(),
 });
 
-export default function Index() {
+const Index = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user, logout } = useAuth();
   const {
@@ -277,4 +277,6 @@ export default function Index() {
       </Card>
     </div>
   );
-}
+};
+
+export default Index;

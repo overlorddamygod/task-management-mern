@@ -23,7 +23,7 @@ const loginFormSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters" }),
 });
 
-export default function Login() {
+const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -52,9 +52,9 @@ export default function Login() {
         <div className={"flex flex-col gap-6"}>
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Login</CardTitle>
+              <CardTitle className="text-2xl">Task Manager | Login</CardTitle>
               <CardDescription>
-                Enter your email below to login to your account
+                Enter your email and password below to login to your account
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -121,4 +121,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;

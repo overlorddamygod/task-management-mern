@@ -5,6 +5,7 @@ import Index from "./pages/Index";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { TaskProvider } from "./context/TaskContext";
 import { Toaster } from "./components/ui/sonner";
+import NotFound from "./pages/NotFound";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -46,6 +47,7 @@ const Router = () => {
             </PublicRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

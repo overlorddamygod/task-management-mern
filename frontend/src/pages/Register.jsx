@@ -30,7 +30,7 @@ const formSchema = z.object({
     }),
 });
 
-export default function Register() {
+const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -142,4 +142,6 @@ export default function Register() {
       </Card>
     </div>
   );
-}
+};
+
+export default Register;
