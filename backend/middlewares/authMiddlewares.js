@@ -1,24 +1,31 @@
 const jwt = require("../lib/jwt");
 
+const UNAUTHORIZED = (res) => {
+  return res.status(401).json({ message: "Unauthorized" })
+}
+
 const isAuthenticated = (req, res, next) => {
   let token = req.headers["authorization"];
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return UNAUTHORIZED(res);
   }
 
-  tokenSplit = token.split(" ")
+  tokenSplit = token.split(" ");
   if (tokenSplit.length !== 2 || tokenSplit[0] !== "Bearer") {
-    return res.status(401).json({ message: "Unauthorized" });
+    return UNAUTHORIZED(res);
   }
 
   token = tokenSplit[1];
-  const decoded = jwt.verifyToken(token);
-  if (!decoded) {
-    return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verifyToken(token);
+    if (!decoded) {
+      return UNAUTHORIZED(res);;
+    }
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return UNAUTHORIZED(res);
   }
-  
-  req.user = decoded;
-  next()
 };
 
 module.exports = { isAuthenticated };
