@@ -29,6 +29,29 @@ Backend deployed at [https://task-management-mern-09ef.onrender.com/api](https:/
 - User Registration and Authentication
 - CRUD Operations for Tasks
 
+## Project Structure
+
+```
+task-management-mern
+├── backend
+│   ├── controllers     # Controllers for handling requests
+│   ├── docs            # API documentation
+│       └── postman     # Postman collection
+│   ├── middlewares     # Middlewares for authentication and validation
+│   ├── routes          # Routes for API endpoints
+│   ├── lib             # Utility functions
+│   ├── prisma          # Prisma schema
+│   └── validation      # Validation schemas
+└── frontend
+    ├── public
+    └── src
+       ├── assets       # Assets
+       ├── components   # Reusable components
+       ├── context      # Context API for state management
+       ├── lib          # Utility functions
+       └── pages        # Web Pages Components
+```
+
 ## Setup
 
 Clone the repo:
@@ -55,20 +78,27 @@ Create `.env` file:
 ```
 PORT=3000
 JWT_SECRET=aa6f745e8792fae59502bbdbdcba999f0d
-DATABASE_URL=postgresql_connection_string
+DATABASE_URL=your_postgresql_connection_string
 ```
 
-or copy from [.env.sample](./backend/.env.sample):
+or copy from [env.sample](./backend/.env.sample):
 
 ```
 cp .env.sample .env
 ```
 
+Run migrations and generate prisma client:
+
+```
+npm run migrate  # Migrate database
+npm run generate # Generate Prisma client
+```
+
 Run server:
 
 ```
-npm start # Production
-npm run dev # Development
+npm start    # Production
+npm run dev  # Development
 ```
 
 Server runs on [http://localhost:3000](http://localhost:3000)
@@ -100,13 +130,17 @@ cp .env.sample .env
 Run server:
 
 ```
-npm run build && npm run preview // Production
-npm run dev // Development
+npm run build && npm run preview   # Production
+npm run dev                        # Development
 ```
 
 Frontend runs on [http://localhost:5173](http://localhost:5173)
 
 ## API Endpoints
+
+Postman collection is available in the [/backend/docs/postman/task-management-mern.postman_collection.json](./backend/docs/postman/task-management-mern.postman_collection.json) and can be imported into Postman for testing.
+
+Full API documentation is available in the [/backend/docs/API_README.md](./backend/docs/API_README.md)
 
 | Method | Endpoint       | Description   |
 | ------ | -------------- | ------------- |
