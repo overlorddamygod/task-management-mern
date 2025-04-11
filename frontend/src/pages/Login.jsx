@@ -101,7 +101,7 @@ const Login = () => {
                     className="w-full"
                     disabled={form.formState.isSubmitting}
                   >
-                    {form.formState.isSubmitting ? "Loggin in..." : "Login"}
+                    {form.formState.isSubmitting ? "Logging in..." : "Login"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
