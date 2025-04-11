@@ -2,7 +2,7 @@ const joi = require("joi");
 
 const taskSchema = joi.object({
   title: joi.string().min(3).required(),
-  description: joi.string().optional(),
+  description: joi.string().allow(null, ""),
   completed: joi.boolean().optional(),
 });
 

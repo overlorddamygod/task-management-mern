@@ -7,7 +7,7 @@ const createTask = async (req, res) => {
     const task = await prisma.task.create({
       data: {
         title,
-        description,
+        description: description || "",
         completed,
         creatorId: req.user.id,
       },
@@ -27,7 +27,10 @@ const getTasks = async (req, res) => {
   try {
     const tasks = await prisma.task.findMany({
         where: {
-            creatorId: req.user.id,
+          creatorId: req.user.id,
+        },
+        orderBy: {
+          createdAt: "desc",
         },
     });
     res.status(200).json(tasks);
