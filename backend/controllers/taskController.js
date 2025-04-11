@@ -37,6 +37,43 @@ const getTasks = async (req, res) => {
   }
 };
 
+const updateTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { completed } = req.body;
+
+    const task = await prisma.task.findUnique({
+        where: {
+          id
+        },
+        });
+
+    if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+    }
+    if (task.creatorId !== req.user.id) {
+        return res.status(403).json({ message: "You do not have permission to update this task" });
+    }
+
+    const updatedTask = await prisma.task.update({
+      where: {
+        id,
+      },
+      data: {
+        completed,
+      },
+    });
+
+    res.status(200).json({
+      message: "Task updated successfully",
+      task: updatedTask,
+    });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -71,5 +108,6 @@ const deleteTask = async (req, res) => {
 module.exports = {
   createTask,
   getTasks,
+  updateTask,
   deleteTask,
 };

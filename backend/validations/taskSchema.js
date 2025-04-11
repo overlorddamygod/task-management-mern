@@ -6,4 +6,8 @@ const taskSchema = joi.object({
   completed: joi.boolean().optional(),
 });
 
-module.exports = taskSchema;
+const updateTaskSchema = joi.object({
+  completed: joi.boolean().optional(),
+});
+
+module.exports = { taskSchema, updateTaskSchema };
