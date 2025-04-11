@@ -55,7 +55,7 @@ const Register = () => {
     } catch (error) {
       console.error("Registration failed:", error);
       form.setError("root", {
-        message: "Registration failed. This email may already be in use.",
+        message: error.response?.data?.message || "Registration failed",
       });
     }
   };

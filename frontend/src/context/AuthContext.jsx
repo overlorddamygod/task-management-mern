@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     ] = `Bearer ${res.data.token}`;
   };
 
-  const register = async (credentials) => {
+  const register = (credentials) => {
     return axiosClient.post("/auth/register", credentials);
   };
 
