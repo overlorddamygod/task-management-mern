@@ -1,11 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { CheckCircle2, Circle, Loader2, Plus, Trash2 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,14 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +26,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useTask } from "@/context/TaskContext";
+import { useAuth } from "@/context/AuthContext";
+import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
@@ -45,6 +36,7 @@ const formSchema = z.object({
 
 export default function Index() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, logout } = useAuth();
   const {
     tasks,
     taskCounts,
@@ -68,6 +60,9 @@ export default function Index() {
       await addTask(values);
       form.reset();
     } catch (error) {
+      form.setError("root", {
+        message: error.message || "Failed to add task. Please try again.",
+      });
       console.error("Failed to add task:", error);
     } finally {
       setIsSubmitting(false);
@@ -78,61 +73,69 @@ export default function Index() {
     <div className="container mx-auto py-8 px-4">
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle className="text-2xl">Task Manager</CardTitle>
+          <CardTitle className="text-2xl flex justify-between items-center">
+            <div>Task Manager</div>
+            <div className="flex items-center gap-2">
+              Hi, {user.name}
+              <Button onClick={() => logout()}>Logout</Button>
+            </div>
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Task Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter task title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <div className="flex flex-col gap-3">
+              <div className="grid gap-2">
+                <Label htmlFor="title">
+                  Title <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="title"
+                  placeholder="Enter task title"
+                  {...form.register("title")}
+                />
+                {form.formState.errors.title && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.title.message}
+                  </p>
                 )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description (Optional)</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Enter task description"
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Enter task description"
+                  {...form.register("description")}
+                />
+                {form.formState.errors.description && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.description.message}
+                  </p>
                 )}
-              />
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Adding
-                    Task
-                  </>
-                ) : (
-                  <>
-                    <Plus className="mr-2 h-4 w-4" /> Add Task
-                  </>
-                )}
-              </Button>
-            </form>
-          </Form>
+              </div>
+            </div>
+            {form.formState.errors.root && (
+              <p className="text-red-500 text-sm">
+                {form.formState.errors.root.message}
+              </p>
+            )}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Adding Task
+                </>
+              ) : (
+                <>
+                  <Plus className="mr-2 h-4 w-4" /> Add Task
+                </>
+              )}
+            </Button>
+          </form>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
+          <CardTitle className="flex gap-2 md:items-center justify-between flex-col md:flex-row">
             <span>Your Tasks</span>
             <div className="flex items-center">
               <div className="flex gap-2">
@@ -164,7 +167,7 @@ export default function Index() {
             <div className="flex flex-col sm:flex-row gap-2 mt-2">
               <Input
                 placeholder="Search tasks..."
-                className="max-w-xs"
+                className="md:max-w-xs"
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
@@ -197,7 +200,7 @@ export default function Index() {
                     >
                       <></>
                       {task.completed ? (
-                        <CheckCircle2 className="h-5 w-5" />
+                        <CheckCircle2 className="h-5 w-5 text-green-600" />
                       ) : (
                         <Circle className="h-5 w-5" />
                       )}

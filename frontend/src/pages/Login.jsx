@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,15 +14,6 @@ import {
 import { Input, PasswordInput } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { useAuth } from "../context/AuthContext";
 
 const loginFormSchema = z.object({
@@ -35,7 +24,6 @@ const loginFormSchema = z.object({
 });
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -81,7 +69,6 @@ export default function Login() {
                       id="email"
                       type="email"
                       placeholder="m@example.com"
-                      required
                       {...form.register("email")}
                     />
                     {form.formState.errors.email && (
@@ -91,15 +78,8 @@ export default function Login() {
                     )}
                   </div>
                   <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password">Password</Label>
-                      <a
-                        href="#"
-                        className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                      >
-                        Forgot your password?
-                      </a>
-                    </div>
+                    <Label htmlFor="password">Password</Label>
+
                     <PasswordInput
                       id="password"
                       placeholder="********"

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import axiosClient from "../lib/axiosClient";
+import { toast } from "sonner";
 
 const TaskContext = createContext();
 
@@ -9,37 +10,72 @@ export const TaskProvider = ({ children }) => {
   const [filter, setFilter] = useState("all"); // "all", "completed", "pending"
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const fetchTasks = async () => {
     setIsLoading(true);
     try {
       const res = await axiosClient.get("/tasks");
       setTasks(res.data);
     } catch (error) {
-      console.error("Failed to fetch tasks:", error);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to update task status");
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   const addTask = async (values) => {
-    await axiosClient.post("/tasks", {
-      title: values.title,
-      description: values.description || "",
-    });
+    try {
+      const newTask = await axiosClient.post("/tasks", {
+        title: values.title,
+        description: values.description || "",
+      });
+      setTasks((prevTasks) => [newTask.data.task, ...prevTasks]);
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw error;
+      }
+    }
   };
 
   const toggleTaskStatus = async (id, completed) => {
-    await axiosClient.patch(`/tasks/${id}`, { completed: !completed });
-    fetchTasks();
+    try {
+      const updatedTaskResponse = await axiosClient.patch(`/tasks/${id}`, {
+        completed: !completed,
+      });
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id ? updatedTaskResponse.data.task : task
+        )
+      );
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to update task status");
+      }
+    }
   };
 
   const deleteTask = async (id) => {
-    await axiosClient.delete(`/tasks/${id}`);
-    fetchTasks();
+    try {
+      await axiosClient.delete(`/tasks/${id}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to delete task");
+      }
+    }
   };
 
   const filteredTasks = useMemo(
