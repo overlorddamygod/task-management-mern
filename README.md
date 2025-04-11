@@ -4,6 +4,8 @@ Frontend deployed at [https://task-manager-mern-22.vercel.app](https://task-mana
 
 Backend deployed at [https://task-management-mern-09ef.onrender.com/api](https://task-management-mern-09ef.onrender.com/api)
 
+** Might require some minutes to load the site as the servers sleep when inactive **
+
 ## Tech Stack
 
 ### Backend
